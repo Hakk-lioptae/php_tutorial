@@ -1,21 +1,73 @@
 <?php
+    $users =[];
 
-function addUser($name, $email, $password, $status) 
-{
-  $user=[];
-  $newUser = [
-    "username" => $name,
-    "email" => $email,
-    "password" => $password,
-    "status" => $status
-  ];
-  
-  array_push ($user, $newUser);
-  return $user;
-}
+    function addUser($addArray, $user) 
+    {
+        
+        if(!isset($user['username']) || !($user['username'])) {echo ("USER NAME IS REQUIRE");}
+        
+        elseif(!isset($user['password']) || !($user['password'])) {echo ("PASSWORD IS REQUIRED");}
 
-$users = addUser("aung aung", "aung@gmail.com","12345", true);
+        elseif(isset($user['password']) && strlen($user['password'])< 6) {echo ("PASSWORD MUST BE 6 DIGIT");}
 
+        elseif(!isset($user['email']) || !($user['email'])) {echo ("EMAIL IS REQUIRED");}
+
+        elseif(!isset($user['status'])) {echo ("STATUS IS REQUIRED");}
+
+        else{array_push($addArray, $user); return $addArray;}
+
+    }
+
+    $newUsers =     [
+
+        [
+            "username"=> "mg mg",
+            "password"=> "123456",
+            "email"=> "mg@gmail.com",
+            "status"=> true
+        ],
+
+        [
+            "username"=> "mama",
+            "password"=> "123566",
+            "email"=> "mama@gmail.com",
+            "status"=> true
+        ],
+        [
+            "username"=> "koko",
+            "password"=> "123566",
+            "email"=> "koko@gmail.com",
+            "status"=> false
+        ]
+    ];
+
+
+    foreach ($newUsers as $newUser) 
+    {
+        $users = addUser($users, $newUser);
+    }
+
+    
+    // //deleting user from array index by keyword
+    foreach ($newUsers as $newUser){
+    $val = "mama";
+ 
+    $key = array_search($val, $newUser, true);
+    if ($key !== false) {
+        unset($newUser[$key]);
+    }
+
+    elseif (!$val){echo "USERNAME IS REQUIRED";}
+ 
+    else  { echo json_encode($newUser);}
+    }
+
+    
+
+
+
+
+      
 
 ?>
 
